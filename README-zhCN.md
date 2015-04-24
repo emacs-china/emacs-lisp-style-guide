@@ -11,7 +11,7 @@
 
 本指南仍在完善中——有些章节还没写，另一些则不完整，某些规则缺乏实例，某些例子也不够清楚。到时候都会解决的——放心吧。
 
-请注意，Emacs 开发者也维护着一份 [coding conventions and tips](http://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html#Tips)
+请注意，Emacs 开发者也维护着一份 [coding conventions and tips](http://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html#Tips)。
 
 你可以使用 [Transmuter](https://github.com/TechnoGate/transmuter) 生成本指南的 PDF 或 HTML 版本。
 
@@ -32,7 +32,145 @@
 
 ## 源代码排版和组织
 
-TODO
+> 所有风格都又丑又难读，自己的除外。几乎人人都这样想。把“自己的除外”拿掉，他们或许是对的...<br>
+> ——Jerry Coffin（论缩排）
+
+以下指定的缩排规则 Emacs 已经默认采用了，当你输入 `<tab>` 时， 缩排总是正确的。
+
+* 使用**空格**缩进。不要使用硬 tab。
+
+* 对于普通的函数，垂直对齐参数。
+
+    ```el
+    ;; 好
+    (format "%s %d"
+            something
+            something-else)
+
+    ;; 差
+    (format "%s %d"
+      something
+      something-else)
+    ```
+
+* 如果第一个参数在新的一行上，与函数名对齐。
+
+    ```el
+    ;; 好
+    (format 
+     "%s %d"
+     something
+     something-else)
+
+    ;; 差
+    (format 
+      "%s %d"
+      something
+      something-else)
+    ```
+
+* 有些特殊 form，它们接受一个或多个_"special"_参数，紧接着一个_"body"_（一个任意长度的参数，但只有最后的返回值有意义），比如 `if`、`let`、`with-current-buffer` 等等。_"special"_参数应该与 form 名放在同一行或用四个空格缩排。_"body"_参数应该用两个空格缩排。
+
+    ```el
+    ;; 好
+    (when something
+      (something-else))
+
+    ;; 差 -  body 参数用了四个空格缩排
+    (when something
+        (something-else))
+        
+    ;; 差 - 像普通的函数一样对齐了
+    (when 
+     something
+     (something-else))
+    ```
+
+* `if` form 的 "if" 分支是一个_"special"_参数，应该用四个空格缩排。
+
+    ```el
+    ;; 好
+    (if something
+        if-clause
+      else-clause)
+
+    ;; 差
+    (if something
+      if-clause
+      else-clause)
+    ```
+
+* 竖直对齐 `let` 的绑定。
+
+    ```el
+    ;; 好
+    (let ((thing1 "some stuff")
+          (thing2 "other stuff")
+      ...)
+
+    ;; 差
+    (let ((thing1 "some stuff")
+      (thing2 "other stuff"))
+      ...)
+    ```
+* 使用 Unix 风格的换行符。（BSD/Solaris/Linux/OSX 的用户不用担心，Windows 用户要格外小心。）
+    * 如果你使用 Git ，可用下面这个配置，来保护你的项目不被 Windows 的换行符干扰：
+
+    ```bash
+    $ git config --global core.autocrlf true
+    ```
+
+* 如果有 text 位于开括号（`(`，`{`和`[`）之前，或位于闭括号（`)`，`}`和`]`）之后，用一个空格隔开  text 和括号。相反地，不要在开括号之后和 text 之前，或 text 之前和闭括号之前，留任何空白字符。
+
+* 把所有的尾缀括号放在同一行上，而不是另起一行。
+
+    ```el
+    ;; 好 ; 同一行
+    (when something
+      (something-else))
+
+    ;; 差 ; 另起一行
+    (when something
+      (something-else)
+    )
+    ```
+
+* 使用空行来区分 top-level forms。
+
+    ```el
+    ;; 好
+    (defvar x ...)
+
+    (defun foo ...)
+
+    ;; 差
+    (defvar x ...)
+    (defun foo ...)
+    ```
+
+    一个例外需要把相关的 `def`s 放在一起时。
+    
+    ```el
+    ;; 好
+    (defconst min-rows 10)
+    (defconst max-rows 20)
+    (defconst min-cols 15)
+    (defconst max-cols 30)
+    ```
+
+* 不要在函数或者宏定义的中间使用空白行。一个例外是要提示成对出现的构造语句，比如在 `let` 和 `cond` 中出现的。
+
+* 每一行限制在 80 个字符内。
+
+* 避免行尾空格。
+
+* 避免参数列表中多于三个或四个占位的参数。
+
+* 总是开启 lexical scoping。且必须在作为一个 file local variable 放在文件首行。
+
+    ```el
+    ;;; -*- lexical-binding: t; -*-
+    ```
 
 ## 语法
 

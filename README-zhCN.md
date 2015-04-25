@@ -174,7 +174,79 @@
 
 ## 语法
 
-TODO
+* 不要把 `if` form 的 "else" 分支包括在 `pron` 中（默认已经包括了）。
+
+    ```el
+    ;; 好
+    (if something
+        if-clause
+      (something)
+      (something-else))
+
+    ;; 差
+    (if something
+        if-clause
+      (progn
+        (something)
+        (something-else)))
+    ```
+
+* 用 `when` 而不是 `(if ... (progn ...)`。
+
+    ```el
+    ;; 好
+    (when pred
+      (foo)
+      (bar))
+
+    ;; 差
+    (if pred
+      (progn
+        (foo)
+        (bar)))
+    ```
+
+* 用 `unless` 而不是 `(when (not ...) ...)`。
+
+    ```el
+    ;; 好
+    (unless pred
+      (foo)
+      (bar))
+
+    ;; 差
+    (when (not pred)
+      (foo)
+      (bar))
+    ```
+
+* 作比较时，留意 `<`，`>` 等函数可以接受任意数量的参数，从 Emacs 24.4 起。
+
+    ```el
+    ;; 更好
+    (< 5 x 10)
+
+    ;; 老的方法
+    (and (> x 5) (< x 10))
+    ```
+
+* 用 `t` 作为 `cond` 的默认测试表达式。
+
+    ```el
+    ;; 好
+    (cond
+      ((< n 0) "negative")
+      ((> n 0) "positive")
+      (t "zero"))
+
+    ;; 差
+    (cond
+      ((< n 0) "negative")
+      ((> n 0) "positive")
+      (:else "zero"))
+    ```
+
+* 用 `(1+ x)` & `(1- x)` 而不是 `(+ x 1)` 和 `(- x 1)`。
 
 ## 命名
 

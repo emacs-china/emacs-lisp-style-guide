@@ -250,7 +250,55 @@
 
 ## 命名
 
-TODO
+> 程式设计的真正难题是替事物命名及使缓存失效。<br>
+> ——Phil Karlton
+
+* 方法与变量使用 `lisp-case`。
+
+    ```el
+    ;; 好
+    (defvar some-var ...)
+    (defun some-fun ...)
+
+    ;; 差
+    (defvar someVar ...)
+    (defun somefun ...)
+    (defvar some_fun ...)
+    ```
+
+* 用函数库的前缀避免命名冲突。
+
+    ```el
+    ;; 好
+    (defun projectile-project-root ...)
+
+    ;; 差
+    (defun project-root ...)
+    ```
+
+* 给未使用到的局部（lexically scoped）变量名加前缀 `_`。
+
+    ```el
+    ;; 好
+    (lambda (x _y) x)
+
+    ;; 差
+    (lambda (x y) x)
+    ```
+
+* 用 `--` 表示私有定义（比如：`projectile--private-fun`）。
+
+* 断言函数（返回布尔值的函数）应该以 `p` 结尾，单字用 `p`、多字用 `-p`（比如：`evenp` 和 `buffer-live-p`）。
+
+    ```el
+    ;; 好
+    (defun palindromep ...)
+    (defun only-one-p ...)
+
+    ;; 差
+    (defun palindrome? ...) ; Scheme 风格
+    (defun is-palindrome ...) ; Java 风格
+    ```
 
 ## Macros
 

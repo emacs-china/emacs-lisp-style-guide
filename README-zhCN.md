@@ -318,7 +318,87 @@ TODO
 
 ## 注释
 
-TODO
+> 良好的代码是最佳的文档。当你要加一个注释时，扪心自问，“如何改善代码让它不需要注释？” 改善代码，再写相应文档使之更清楚。<br>
+> ——Steve McConnell
+
+* 尽量使你的代码自我文档化。
+
+* 写标题的注释至少使用三个分号。
+
+* 如果顶级注释表示一个标题，用三个分号，否则用两个分号。
+
+* 在代码片段之前写注释，要与之对齐，使用两个分号。
+
+* 写边缘注释使用一个分号。
+
+* 分号和注释文字之间至少留一个空格。
+
+    ```el
+    ;;; Frob Grovel
+    ;; This is where Frob grovels and where Grovel frobs.
+
+    ;; This section of code has some important implications:
+    ;;   1. Foo.
+    ;;   2. Bar.
+    ;;   3. Baz.
+
+    (defun fnord (zarquon)
+      ;; If zob, then veeblefitz.
+      (quux zot
+            mumble             ; Zibblefrotz.
+            frotz))
+    ```
+
+* 注释超过一个单词了，应句首大写并使用标点符号。句号后使用两个空格。
+
+* 避免肤浅的注释。
+
+    ```el
+    ;; 差
+    (1+ counter) ; 计数器加一
+    ```
+
+* 及时更新注释。过时的注释比没有注释还要糟糕。
+
+> 好代码就像是好的笑话 - 它不需要解释 <br>
+> ——Russ Olsen
+
+* 避免替烂代码写注释。重构代码让它们看起来一目了然。（要嘛就做，要嘛不做——不要只是试试看。——Yoda）
+
+### 注解
+
+* 注解应该直接写在相关代码那行之前。
+
+* 注解关键字后面，跟着一个冒号及空格，接着是描述问题的文字。
+
+* 如果需要用多行来描述问题，后续行要与第一行对齐。
+
+* 用字母缩写和日期给你的注解打标签，使得它们的关联更易于辨识。
+
+    ```el
+    (defun some-fun ()
+      ;; FIXME: This has crashed occasionally since v1.2.3. It may
+      ;;        be related to the BarBazUtil upgrade. (xz 13-1-31)
+      (baz))
+    ```
+* 在问题是显而易见的情况下，任何的文档会是多余的，注解应放在有问题的那行的最后，并且不需更多说明。这个用法应该是例外而不是规则。
+
+    ```el
+    (defun bar ()
+      (sleep 100)) ; OPTIMIZE
+    ```
+
+* 使用 `TODO` 标记以后应加入的特征与功能。
+
+* 使用 `FIXME` 标记需要修复的代码。
+
+* 使用 `OPTIMIZE` 标记可能影响性能的缓慢或效率低下的代码。
+
+* 使用 `HACK` 标记代码异味，即那些应该被重构的可疑编码习惯。
+
+* 使用 `REVIEW` 标记需要确认其编码意图是否正确的代码。举例来说：`REVIEW: 我们确定用户现在是这么做的吗？`
+
+* 如果你觉得恰当的话，可以使用其他定制的注解关键字，但别忘记录在项目的 `README` 或类似文档中。
 
 ## Existential
 

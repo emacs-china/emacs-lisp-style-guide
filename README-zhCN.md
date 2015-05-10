@@ -314,6 +314,66 @@
 
 ## Functions
 
+* 局部绑定使用 `lambda`，hook 或全局变量不该使用 `lambda`。后者应该用有名称的函数，可读性更好、易于定制。
+
+
+    ```el
+    ;;; 好
+    (mapcar (lambda (x) (or (car x) "")) some-list)
+    (let ((predicate (lambda (x) (and (numberp x) (evenp x)))))
+      (funcall predicate 1000))
+
+    ;;; 差 - Define real functions for these.
+    (defcustom my-predicate (lambda (x) (and (numberp x) (evenp x)))
+      ...)
+    (define-key my-keymap (kbd "C-f")
+      (lambda () (interactive) (forward-char 1)))
+    (add-hook 'my-hook (lambda () (save-some-buffers)))
+    ```
+* 永远不要 hard quote lambda，会导致无法 byte-compilation。
+
+    ```el
+    ;;; 好
+    (lambda (x) (car x))
+
+    ;;; 可以，但是不必要。
+    #'(lambda (x) (car x))
+
+    ;;; 差
+    '(lambda (x) (car x))
+    ```
+* 不要用匿名函数 wrap 你不需要的函数。
+
+    ```el
+    ;; 好
+    (cl-remove-if-not #'evenp numbers)
+
+    ;; 差
+    (cl-remove-if-not (lambda (x) (evenp x)) numbers)
+    ```
+
+* 用一个井号连着引号（`#'`）来 quote 函数名。它能给 byte-compiler 更好的提示：如果函数未定义，会给出警告。有些宏甚至会有不同效果（像 `cl-labels`）。
+
+    ```el
+    ;; 好
+    (cl-remove-if-not #'evenp numbers)
+    (global-set-key (kbd "C-l C-l") #'redraw-display)
+    (cl-labels ((butterfly () (message "42")))
+      (funcall #'butterfly))
+
+    ;; 差
+    (cl-remove-if-not 'evenp numbers)
+    (global-set-key (kbd "C-l C-l") 'redraw-display)
+    (cl-labels ((butterfly () (message "42")))
+      (funcall 'butterfly))
+    ```
+
+### Macro Declarations
+
+TODO
+
+### Loading and Autoloading
+
 TODO
 
 ## 注释

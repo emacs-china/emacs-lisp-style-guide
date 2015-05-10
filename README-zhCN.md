@@ -57,13 +57,13 @@
 
     ```el
     ;; 好
-    (format 
+    (format
      "%s %d"
      something
      something-else)
 
     ;; 差
-    (format 
+    (format
       "%s %d"
       something
       something-else)
@@ -79,9 +79,9 @@
     ;; 差 -  body 参数用了四个空格缩排
     (when something
         (something-else))
-        
+
     ;; 差 - 像普通的函数一样对齐了
-    (when 
+    (when
      something
      (something-else))
     ```
@@ -149,7 +149,7 @@
     ```
 
     一个例外需要把相关的 `def`s 放在一起时。
-    
+
     ```el
     ;; 好
     (defconst min-rows 10)

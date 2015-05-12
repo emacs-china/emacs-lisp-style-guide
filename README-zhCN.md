@@ -384,7 +384,48 @@
 
 ### Loading and Autoloading
 
-TODO
+* 每个库函数文件的结果都需要一个 `provide` 语句和依据适当的注释（`provide` 允许其它库用 `require`  导入）。
+
+    ```el
+    (provide 'foo)
+
+    ;;; foo.el ends here
+    ```
+
+* 用 `require` 加载库依赖，而不是 `load` 和 `load-library`（前者重复执行恒等，而后两者会重复执行）。
+
+* 给 mode 定义和用户函数和命令（也就是，设置函数和应该绑定快捷键的命令）添加 autoload。相反的，不要给全局变量和内部函数添加 autoload。
+
+    ```el
+    ;;; 好
+    ;;;###autoload
+    (define-derived-mode foo-mode ...)
+
+    ;;;###autoload
+    (define-minor-mode foo-minor-mode ...)
+
+    ;;;###autoload
+    (defun foo-setup () ...)
+
+    ;;; 差
+    ;;;###autoload
+    (defun foo--internal () ...)
+
+    ;;;###autoload
+    (defvar foo-option)
+    ```
+
+* 不要给非定义用的 top-level from（autoloading 一个永远不应该修改用户的配置功能）。但有一个例外：`auto-mode-alist` 可以用来改变新的 major mode。
+
+    ```el
+    ;;; 好
+    ;;;###autoload
+    (add-to-list 'auto-mode-alist '("\\.foo\\'" . foo-mode))
+
+    ;;; 差
+    ;;;###autoload
+    (foo-setup)
+    ```
 
 ## 注释
 

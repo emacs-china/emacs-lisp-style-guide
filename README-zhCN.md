@@ -370,7 +370,17 @@
 
 ### Macro Declarations
 
-TODO
+* 声明 [debug-specification](http://www.gnu.org/software/emacs/manual/html_node/elisp/Specification-List.html#Specification-List)，用来告诉 edebug 哪些参数会被执行。如果所有的参数都会被执行，用 `(declare (debug t))` 就够了。
+
+* 声明 [indent specification](https://www.gnu.org/software/emacs/manual/html_node/elisp/Indenting-Macros.html#Indenting-Macros)，如果，macro 的参数不应该像函数（想想 `defun` 和 `with-current-buffer`）。
+
+    ```el
+    (defmacro define-widget (name &rest forms)
+      "Description"
+      (declare (debug (sexp body))
+               (indent defun))
+      ...)
+    ```
 
 ### Loading and Autoloading
 

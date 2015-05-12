@@ -513,7 +513,46 @@
 
 ### Docstrings
 
-TODO
+Emacs 因其中众多的、深厚的、全面的文档而出名。花时间给你的 package 写 docstrings，可以延续这个传统。
+
+* 用简练、完成的句子。用祈使语气。比如："Verify" 比 "Verifies" 好，"Check" 比 "Checks" 好。
+
+* 当函数需要参数时，解释参数是什么、是否必要，诸如此类。描述这些参数时应该全部大写，并按使用的顺序排序。
+
+* 援用大写首字母 "Emacs".
+
+* documentation string 的后续行不要缩进。它在源代码中看起来不错，但用户看的时候会变得奇怪。
+
+  ```el
+  ;; 好
+  (defun goto-line (line &optional buffer)
+    "Go to LINE, counting from line 1 at beginning of buffer.
+
+  If called interactively, a numeric prefix argument specifies
+  LINE; without a numeric prefix argument, read LINE from the
+  minibuffer..."
+  ...)
+
+  ;; 差
+  (defun goto-line (line &optional buffer)
+    "Go to LINE, counting from line 1 at beginning of buffer.
+
+     If called interactively, a numeric prefix argument specifies
+     LINE; without a numeric prefix argument, read LINE from the
+     minibuffer..."
+    ...)
+
+  ;; 还是差
+  (defun goto-line (line &optional buffer)
+    "Go to LINE, counting from line 1 at beginning of buffer.
+
+     If called interactively, a numeric prefix argument specifies
+   LINE; without a numeric prefix argument, read LINE from the
+   minibuffer..."
+    ...)
+  ```
+
+* Emacs 自带的工具，Checkdoc，能自动检测 docstrings 是否符合代码规范。Emacs community 中也有不少人使用 [Flycheck](http://flycheck.readthedocs.org/en/latest/)。
 
 ## Existential
 

@@ -21,14 +21,14 @@
 * [语法](#语法)
 * [命名](#命名)
 * [字符串](#字符串)
-* [Macros](#macros)
-    * [Macro Declarations](#macro-declarations)
-* [Anonymous (lambda) functions](#anonymous-lambda-functions)
-* [Loading and Autoloading](#loading-and-autoloading)
+* [宏](#macros)
+    * [宏声明](#macro-declarations)
+* [匿名函数](#anonymous-lambda-functions)
+* [加载和自动加载](#loading-and-autoloading)
 * [注释](#注释)
-    * [Comment Annotations](#comment-annotations)
+    * [注解](#comment-annotations)
     * [Docstrings](#docstrings)
-* [Existential](#existential)
+* [其它](#existential)
 
 ## 源代码排版和组织
 

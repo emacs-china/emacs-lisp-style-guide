@@ -300,7 +300,7 @@
     (defun is-palindrome ...) ; Java 风格
     ```
 
-## Macros
+## 宏
 
 * 如果用函数能做到，不用宏。
 
@@ -310,9 +310,9 @@
 
 * 一个宏通常仅提供语法糖，其关键部分应该是函数。如此一来，能易与组合。
 
-* 优先使用引号语法，而不是手动构造 list。
+* 优先使用引号语法，而不是手动构造列表。
 
-## Functions
+## 函数
 
 * 局部绑定使用 `lambda`，hook 或全局变量不该使用 `lambda`。后者应该用有名称的函数，可读性更好、易于定制。
 
@@ -368,7 +368,7 @@
       (funcall 'butterfly))
     ```
 
-### Macro Declarations
+### 宏声明
 
 * 声明 [debug-specification](http://www.gnu.org/software/emacs/manual/html_node/elisp/Specification-List.html#Specification-List)，用来告诉 edebug 哪些参数会被执行。如果所有的参数都会被执行，用 `(declare (debug t))` 就够了。
 
@@ -382,7 +382,7 @@
       ...)
     ```
 
-### Loading and Autoloading
+### 加载和自动加载
 
 * 每个库函数文件的结果都需要一个 `provide` 语句和依据适当的注释（`provide` 允许其它库用 `require`  导入）。
 
@@ -554,7 +554,7 @@ Emacs 因其中众多的、深厚的、全面的文档而出名。花时间给�
 
 * Emacs 自带的工具，Checkdoc，能自动检测 docstrings 是否符合代码规范。Emacs community 中也有不少人使用 [Flycheck](http://flycheck.readthedocs.org/en/latest/)。
 
-## Existential
+## 其它
 
 * 保持一致性。在理想的世界里，遵循这些准则。
 * 使用常识。

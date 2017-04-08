@@ -15,20 +15,27 @@
 
 你可以使用 [Transmuter](https://github.com/TechnoGate/transmuter) 生成本指南的 PDF 或 HTML 版本。
 
+<!-- TODO: Fix TOC -->
+
 ## 目录
 
-* [源代码排版和组织](#源代码排版和组织)
-* [语法](#语法)
-* [命名](#命名)
-* [字符串](#字符串)
-* [宏](#macros)
-    * [宏声明](#macro-declarations)
-* [匿名函数](#anonymous-lambda-functions)
-* [加载和自动加载](#loading-and-autoloading)
-* [注释](#注释)
-    * [注解](#comment-annotations)
-    * [Docstrings](#docstrings)
-* [其它](#existential)
+- [源代码排版和组织](#源代码排版和组织)
+- [语法](#语法)
+- [命名](#命名)
+- [字符串](#字符串)
+- [宏](#macros)
+    - [宏声明](#macro-declarations)
+- [Functions](#functions)
+    - [匿名函数](#anonymous-lambda-functions)
+    - [加载和自动加载](#loading-and-autoloading)
+- [注释](#注释)
+    - [注解](#comment-annotations)
+    - [Docstrings](#docstrings)
+- [Tools](#tools)
+- [其它](#existential)
+- [Contributing](#contributing)
+- [License](#license)
+- [Spread the Word](#spread-the-word)
 
 ## 源代码排版和组织
 
@@ -300,6 +307,16 @@
     (defun is-palindrome ...) ; Java 风格
     ```
 
+* Face 名[不应该](https://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Faces.html)以 `-face` 结尾。
+
+    ```el
+    ;; 好
+    (defface widget-inactive ...)
+
+    ;; 差
+    (defface widget-inactive-face ...)
+    ```
+
 ## 宏
 
 * 如果用函数能做到，不用宏。
@@ -552,7 +569,12 @@ Emacs 因其中众多的、深厚的、全面的文档而出名。花时间给�
     ...)
   ```
 
-* Emacs 自带的工具，Checkdoc，能自动检测 docstrings 是否符合代码规范。Emacs community 中也有不少人使用 [Flycheck](http://flycheck.readthedocs.org/en/latest/)。
+## 工具
+
+* 用 `checkdoc` 检查代码风格问题。
+  * 不少人会把 `checkdoc` 和 [Flycheck](http://flycheck.readthedocs.org/en/latest/) 结合起来用。
+* 在尝试提交你的 Package 给 [MELPA](https://melpa.org) 之前用 [`package-lint`](https://github.com/purcell/package-lint) 检查。
+  * 查看 `package-lint` 的 README 来了解与 [`flycheck`](http://www.flycheck.org/en/latest/) 的整合。
 
 ## 其它
 
